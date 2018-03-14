@@ -1,6 +1,6 @@
 require "fileutils"
 require "json"
-class Config
+class NotifyTwitch::Config
 	attr_reader :client_id,:username
 	def initialize
 		if File.file? "#{ENV['HOME']}/.config/notify-twitch/config.json"
