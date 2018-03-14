@@ -3,18 +3,18 @@ require "notify_twitch"
 require "notify_twitch/config"
 config = Config.new
 username = config.username
-online_followers = get_live_followers(username)
-online_followers.each {|f| notify f}
+online_followers = NotifyTwitch.get_live_followers(username)
+online_followers.each {|f| NotifyTwitch.notify f}
 loop do
-	updated_followers = get_live_followers(username)
+	updated_followers = NotifyTwitch.get_live_followers(username)
 	if updated_followers != online_followers
 		online  = updated_followers - online_followers
 		offline = online_followers - updated_followers
 		online.each do |user|
-			notify user
+			NotifyTwitch.notify user
 		end
 		offline.each do |user|
-			notify user,offline=true
+			NotifyTwitch.notify user,offline=true
 		end
 	end
 	online_followers = updated_followers
